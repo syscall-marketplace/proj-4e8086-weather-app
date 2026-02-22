@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Colors */
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --bg-card-hover: #253348;
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #334155;
+  --error-bg: #451a1a;
+  --error-border: #dc2626;
+  --error-text: #fca5a5;
+  --skeleton-base: #1e293b;
+  --skeleton-shine: #334155;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Font sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.5rem;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lift: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+  min-width: 375px;
+}
+
+/* ─── Search Bar ─── */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.search-bar:focus-within {
+  border-color: var(--accent);
+}
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-base);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.search-bar input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-bar button {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: var(--space-md) var(--space-lg);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-bar button:hover {
+  background: var(--accent-hover);
+}
+
+/* ─── Unit Toggle ─── */
+
+.unit-toggle {
+  display: inline-flex;
+  background: var(--bg-card);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.unit-toggle button {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.unit-toggle button.active {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+.unit-toggle button:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+/* ─── Current Weather Card ─── */
+
+.current-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.current-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+
+.current-card .city-name {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+}
+
+.current-card .temp {
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: var(--space-sm);
+}
+
+.current-card .condition {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--text-secondary);
+  font-size: var(--text-lg);
+  text-transform: capitalize;
+  margin-bottom: var(--space-lg);
+}
+
+.current-card .condition img {
+  width: 48px;
+  height: 48px;
+}
+
+.current-card .details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .current-card .details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.detail-chip {
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.detail-chip .detail-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.detail-chip .detail-value {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+/* ─── Forecast Strip ─── */
+
+.forecast-strip {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  padding-bottom: var(--space-sm);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.forecast-strip::-webkit-scrollbar {
+  height: 6px;
+}
+
+.forecast-strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.forecast-strip::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.forecast-day {
+  flex: 0 0 auto;
+  min-width: 120px;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.forecast-day:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+
+.forecast-day .forecast-date {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+}
+
+.forecast-day .forecast-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-sm);
+}
+
+.forecast-day .forecast-temps {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.forecast-day .forecast-temps .temp-min {
+  color: var(--text-muted);
+}
+
+.forecast-day .forecast-pop {
+  font-size: var(--text-xs);
+  color: var(--accent);
+}
+
+/* ─── Loading Skeleton ─── */
+
+.loading-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.skeleton-block {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.loading-skeleton .skeleton-card {
+  height: 280px;
+}
+
+.loading-skeleton .skeleton-strip {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.loading-skeleton .skeleton-strip .skeleton-block {
+  flex: 0 0 120px;
+  height: 160px;
+}
+
+/* ─── Error Banner ─── */
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  color: var(--error-text);
+  font-size: var(--text-sm);
+}
+
+.error-banner .error-icon {
+  flex-shrink: 0;
+  font-size: var(--text-xl);
+}
+
+.error-banner .error-message {
+  flex: 1;
+}
